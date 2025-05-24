@@ -1,4 +1,5 @@
 import 'package:deleveryapp/utils/app_images.dart';
+import 'package:deleveryapp/view/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,6 +20,18 @@ class _SplashScreenState extends State<SplashScreen> {
         _opacity = 1;
       });
     });
+    pushOnboarding();
+  }
+
+  Future<void> pushOnboarding() async {
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.pushReplacement(
+      // ignore: use_build_context_synchronously
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => OnboardingScreen(),
+      ),
+    );
   }
 
   @override
