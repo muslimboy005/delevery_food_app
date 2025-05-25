@@ -1,4 +1,5 @@
-import 'package:deleveryapp/view/screens/register4.dart';
+import 'package:deleveryapp/view/screens/login_screen.dart';
+import 'package:deleveryapp/view/screens/signIn_screen.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +7,12 @@ class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
 
   @override
-  State<VerificationScreen> createState() => VerificationScreenState();
+  State<VerificationScreen> createState() =>
+      VerificationScreenState();
 }
 
-class VerificationScreenState extends State<VerificationScreen> {
+class VerificationScreenState
+    extends State<VerificationScreen> {
   List<TextEditingController> controllers = List.generate(
     4,
     (index) => TextEditingController(),
@@ -30,7 +33,10 @@ class VerificationScreenState extends State<VerificationScreen> {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
                 onPressed: () {},
               ),
             ),
@@ -53,10 +59,15 @@ class VerificationScreenState extends State<VerificationScreen> {
                 SizedBox(height: 8),
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40,
+                    ),
                     child: Text(
                       "We have sent a code to your email\nexample@gmail.com",
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -71,7 +82,10 @@ class VerificationScreenState extends State<VerificationScreen> {
             child: Container(
               width: double.infinity,
               height: 600,
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              padding: EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 32,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -80,12 +94,14 @@ class VerificationScreenState extends State<VerificationScreen> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 24),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "CODE",
@@ -98,7 +114,10 @@ class VerificationScreenState extends State<VerificationScreen> {
                       ),
                       Text(
                         "Resend in 50sec",
-                        style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[500],
+                        ),
                       ),
                     ],
                   ),
@@ -106,14 +125,16 @@ class VerificationScreenState extends State<VerificationScreen> {
                   SizedBox(height: 16),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceEvenly,
                     children: List.generate(4, (index) {
                       return Container(
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius:
+                              BorderRadius.circular(12),
                         ),
                         child: TextField(
                           controller: controllers[index],
@@ -122,7 +143,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType:
+                              TextInputType.number,
                           maxLength: 1,
                           decoration: InputDecoration(
                             counterText: "",
@@ -138,9 +160,12 @@ class VerificationScreenState extends State<VerificationScreen> {
                   Button(
                     text: "VERIFY",
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        MaterialPageRoute(
+                          builder:
+                              (context) => LoginScreen(),
+                        ),
                       );
                     },
                   ),

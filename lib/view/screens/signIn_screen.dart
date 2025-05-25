@@ -1,6 +1,6 @@
-import 'package:deleveryapp/view/screens/location_accses.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:deleveryapp/view/widgets/text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -16,7 +16,9 @@ class SignUpScreenState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   final retypePasswordController = TextEditingController();
   bool isPasswordObscured = true;
+
   bool isRetypePasswordObscured = true;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
                 onPressed: () {},
               ),
             ),
@@ -57,10 +62,15 @@ class SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 8),
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40,
+                    ),
                     child: Text(
                       "Please sign up to get started",
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -76,7 +86,10 @@ class SignUpScreenState extends State<SignUpScreen> {
             child: Container(
               width: double.infinity,
               height: 650,
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 4),
+              padding: EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -85,7 +98,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 24),
 
@@ -118,7 +132,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isPasswordObscured = !isPasswordObscured;
+                          isPasswordObscured =
+                              !isPasswordObscured;
                         });
                       },
                     ),
@@ -139,7 +154,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isRetypePasswordObscured = !isRetypePasswordObscured;
+                          isRetypePasswordObscured =
+                              !isRetypePasswordObscured;
                         });
                       },
                     ),
@@ -149,13 +165,36 @@ class SignUpScreenState extends State<SignUpScreen> {
 
                   Button(
                     text: "SIGN UP",
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LocationPermissionScreen(),
-                        ),
-                      );
+                    onTap: () async {
+                      try {
+                        await auth
+                            .createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password:
+                                  passwordController.text,
+                            );
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "muaffaqiyatli",
+                              ),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
+                        }
+                      }
                     },
                   ),
 

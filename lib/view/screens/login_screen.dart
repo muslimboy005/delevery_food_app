@@ -1,8 +1,10 @@
-import 'package:deleveryapp/view/screens/register2.dart';
-import 'package:deleveryapp/view/screens/register4.dart';
+import 'package:deleveryapp/view/screens/forgot_password_screen.dart';
+import 'package:deleveryapp/view/screens/home.dart';
+import 'package:deleveryapp/view/screens/signIn_screen.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:deleveryapp/view/widgets/container.dart';
 import 'package:deleveryapp/view/widgets/text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool rememberMe = false;
   bool isObscured = true;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +141,43 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 8),
                     Button(
                       text: "LOG IN",
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) =>
-                                    ForgotPasswordScreen(),
-                          ),
-                        );
+                      onTap: () async {
+                        try {
+                          final user = await auth
+                              .signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password:
+                                    passwordController.text,
+                              );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (ctx) => HomeScreen(),
+                            ),
+                          );
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  user.toString(),
+                                ),
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(
+                              SnackBar(
+                                content: Text(e.toString()),
+                              ),
+                            );
+                          }
+                        }
                       },
                     ),
                     SizedBox(height: 20),
@@ -157,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text("Don't have an account?"),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder:
