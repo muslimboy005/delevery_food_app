@@ -12,4 +12,10 @@ class AppImages {
       "assets/images/onboarding4.jpg";
   static const String location =
       "assets/images/location.jpg";
+    static const String cash = "assets/svgs/cash.svg";
+  static const String masterCard = "assets/svgs/master_card.svg";
+  static const String visa = "assets/svgs/visa.svg";
+  static const String paypal = "assets/svgs/paypal.svg";
+  static const String cart = "assets/svgs/cart.svg";
+  static const String miniCart = "assets/svgs/miniCart.svg";
 }

@@ -1,4 +1,3 @@
-
 import 'package:deleveryapp/view/widgets/burger_card.dart';
 import 'package:deleveryapp/view/widgets/header_section.dart';
 import 'package:deleveryapp/view/widgets/restaurant_card.dart';
@@ -17,7 +16,12 @@ class _BurgerScreenState extends State<BurgerScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       body: Padding(
-        padding: EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 20),
+        padding: EdgeInsets.only(
+          top: 50,
+          left: 20,
+          right: 20,
+          bottom: 20,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,7 +41,7 @@ class _BurgerScreenState extends State<BurgerScreen> {
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15,
-                mainAxisSpacing: 20,
+                mainAxisSpacing: 25,
                 childAspectRatio: 0.75,
                 children: [
                   BurgerCard(

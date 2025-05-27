@@ -1,5 +1,4 @@
 import 'package:deleveryapp/view/screens/login_screen.dart';
-import 'package:deleveryapp/view/screens/signIn_screen.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:flutter/material.dart';
 

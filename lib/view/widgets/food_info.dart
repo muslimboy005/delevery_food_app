@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FoodInfo extends StatelessWidget {
-  const FoodInfo({super.key});
+  final String text;
+  final String labeltext;
+  const FoodInfo({
+    required this.text,
+    required this.labeltext,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

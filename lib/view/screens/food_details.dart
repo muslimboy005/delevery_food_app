@@ -1,9 +1,10 @@
-import 'package:deleveryapp/view/widgets/restaurant_info.dart';
-import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:deleveryapp/view/widgets/food_info.dart';
 import 'package:deleveryapp/view/widgets/info_row.dart';
 import 'package:deleveryapp/view/widgets/ingredient_selection.dart';
+import 'package:deleveryapp/view/widgets/product_action.dart';
+import 'package:deleveryapp/view/widgets/restaurant_info.dart';
 import 'package:deleveryapp/view/widgets/size_selection.dart';
+
 import 'package:flutter/material.dart';
 
 class FoodDetailsScreen extends StatefulWidget {
@@ -23,131 +24,107 @@ class FoodDetailsScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 40,
+                left: 20,
+                right: 20,
+              ),
               child: Column(
                 crossAxisAlignment:
                     CrossAxisAlignment.start,
                 children: [
-                  Stack(
+                  Row(
                     children: [
                       Container(
-                        height: 300,
-                        width: double.infinity,
-                        margin: EdgeInsets.all(20),
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: Colors.grey.shade300,
-                          borderRadius:
-                              BorderRadius.circular(20),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            size: 18,
+                          ),
                         ),
                       ),
-
-                      Positioned(
-                        top: 50,
-                        left: 30,
-                        right: 30,
-                        child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 8,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 18,
-                                ),
-                                padding: EdgeInsets.zero,
-                              ),
-                            ),
-
-                            Text(
-                              "Details",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
-                            ),
-
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 8,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Icon(
-                                Icons.favorite_border,
-                                size: 20,
-                                color: Colors.grey.shade600,
-                              ),
-                            ),
-                          ],
+                      SizedBox(width: 20),
+                      Text(
+                        "Details",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                      children: [
-                        RestaurantInfo(),
-                        SizedBox(height: 20),
-                        FoodInfo(),
-                        SizedBox(height: 20),
-                        InfoRow(),
-                        SizedBox(height: 25),
-                        SizeSelection(
-                          selectedSize: selectedSize,
-                          onSizeChanged: (size) {
-                            setState(() {
-                              selectedSize = size;
-                            });
-                          },
+                  SizedBox(height: 30),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 200,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius:
+                              BorderRadius.circular(30),
                         ),
-                        SizedBox(height: 25),
-                        IngredientsSection(),
-                        SizedBox(height: 30),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        right: 20,
+                        bottom: 20,
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.favorite_border,
+                            size: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 30),
+                  RestaurantInfo(),
+                  SizedBox(height: 20),
+                  FoodInfo(
+                    text: "Pizza Calzone European",
+                    labeltext:
+                        "Prosciutto e funghi is a pizza variety that is topped with tomato sauce.",
+                  ),
+                  SizedBox(height: 20),
+                  InfoRow(),
+                  SizedBox(height: 25),
+                  SizeSelection(
+                    selectedSize: selectedSize,
+                    onSizeChanged: (size) {
+                      setState(() {
+                        selectedSize = size;
+                      });
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  IngredientsSection(),
                 ],
               ),
             ),
-          ),
-
-          Button(text: "ADD TO CART", onTap: () {}),
-        ],
+            SizedBox(height: 10),
+            ProductActionWidget(),
+          ],
+        ),
       ),
     );
   }

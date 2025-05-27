@@ -30,10 +30,12 @@ class BurgerCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 120,
+            height: 110,
             decoration: BoxDecoration(
               color: Colors.grey,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
             ),
           ),
 
@@ -55,13 +57,17 @@ class BurgerCard extends StatelessWidget {
 
                 Text(
                   restaurant,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
 
                 SizedBox(height: 12),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       price,
@@ -79,7 +85,11 @@ class BurgerCard extends StatelessWidget {
                         color: Colors.orange,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.add, color: Colors.white, size: 18),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ),
                   ],
                 ),
