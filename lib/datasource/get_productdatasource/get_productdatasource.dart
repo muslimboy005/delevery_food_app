@@ -20,6 +20,7 @@ class GetProductdatasource {
   }
 
   Future<List<ProductModel>> getProduct() async {
+    print("Malumotlar Olindi");
     final data = await db.collection("products").get();
     List<ProductModel> products = [];
     for (var doc in data.docs) {
@@ -27,6 +28,7 @@ class GetProductdatasource {
       product["id"] = doc.id;
       products.add(ProductModel.fromJson(product));
     }
+    print(products);
     return products;
   }
 }

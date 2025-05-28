@@ -1,5 +1,6 @@
 import 'package:deleveryapp/cubits/product_cubit/product_cubit.dart';
 import 'package:deleveryapp/cubits/product_cubit/product_state.dart';
+import 'package:deleveryapp/view/screens/food_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
       };
     },
   );
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductCubit>().getProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -321,77 +328,93 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: foods.length,
                         itemBuilder: (context, index) {
                           final item = foods[index];
-                          return Container(
-                            width: 160,
-                            margin: EdgeInsets.only(
-                              right: 16,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(
-                                10,
-                              ),
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .start,
-                                children: [
-                                  Container(
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius:
-                                          BorderRadius.circular(
-                                            10,
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) =>
+                                          FoodDetailsScreen(
+                                            product: item,
                                           ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 160,
+                              margin: EdgeInsets.only(
+                                right: 16,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.circular(
+                                      16,
                                     ),
-                                    child: Image.network(
-                                      item.image,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    item.name,
-                                    style: TextStyle(
-                                      fontWeight:
-                                          FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Starting",
-                                        style: TextStyle(
-                                          color:
-                                              Colors
-                                                  .black45,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      Text(
-                                        "\$${item.price}",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 4,
                                   ),
                                 ],
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(
+                                      10,
+                                    ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .start,
+                                  children: [
+                                    Container(
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius:
+                                            BorderRadius.circular(
+                                              10,
+                                            ),
+                                      ),
+                                      child: Image.network(
+                                        item.image,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      item.name,
+                                      style: TextStyle(
+                                        fontWeight:
+                                            FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Starting",
+                                          style: TextStyle(
+                                            color:
+                                                Colors
+                                                    .black45,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          "\$${item.price}",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

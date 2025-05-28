@@ -2,7 +2,11 @@ import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class ProductActionWidget extends StatefulWidget {
-  const ProductActionWidget({super.key});
+  final num price;
+  const ProductActionWidget({
+    super.key,
+    required this.price,
+  });
 
   @override
   State<ProductActionWidget> createState() =>
@@ -12,7 +16,6 @@ class ProductActionWidget extends StatefulWidget {
 class _ProductActionWidgetState
     extends State<ProductActionWidget> {
   int quantity = 1;
-  double price = 32;
 
   void _increment() {
     setState(() {
@@ -43,7 +46,7 @@ class _ProductActionWidgetState
                 MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '\$${price.toStringAsFixed(0)}',
+                '\$${(widget.price * quantity).toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 30),
               ),
               Container(

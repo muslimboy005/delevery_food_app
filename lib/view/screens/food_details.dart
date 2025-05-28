@@ -1,3 +1,4 @@
+import 'package:deleveryapp/model/product_model.dart';
 import 'package:deleveryapp/view/widgets/food_info.dart';
 import 'package:deleveryapp/view/widgets/info_row.dart';
 import 'package:deleveryapp/view/widgets/ingredient_selection.dart';
@@ -8,7 +9,11 @@ import 'package:deleveryapp/view/widgets/size_selection.dart';
 import 'package:flutter/material.dart';
 
 class FoodDetailsScreen extends StatefulWidget {
-  const FoodDetailsScreen({super.key});
+  final ProductModel product;
+  const FoodDetailsScreen({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<FoodDetailsScreen> createState() =>
@@ -77,22 +82,9 @@ class FoodDetailsScreenState
                           borderRadius:
                               BorderRadius.circular(30),
                         ),
-                      ),
-                      Positioned(
-                        right: 20,
-                        bottom: 20,
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade400,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.favorite_border,
-                            size: 18,
-                            color: Colors.white,
-                          ),
+                        child: Image.network(
+                          widget.product.image,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ],
@@ -101,7 +93,7 @@ class FoodDetailsScreenState
                   RestaurantInfo(),
                   SizedBox(height: 20),
                   FoodInfo(
-                    text: "Pizza Calzone European",
+                    text: widget.product.name,
                     labeltext:
                         "Prosciutto e funghi is a pizza variety that is topped with tomato sauce.",
                   ),
@@ -122,7 +114,9 @@ class FoodDetailsScreenState
               ),
             ),
             SizedBox(height: 10),
-            ProductActionWidget(),
+            ProductActionWidget(
+              price: widget.product.price,
+            ),
           ],
         ),
       ),

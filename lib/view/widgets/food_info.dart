@@ -15,7 +15,7 @@ class FoodInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Pizza Calzone European",
+          text,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,

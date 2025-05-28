@@ -1,3 +1,5 @@
+import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_cubit.dart';
+import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_state.dart';
 import 'package:deleveryapp/view/screens/forgot_password_screen.dart';
 import 'package:deleveryapp/view/screens/home.dart';
 import 'package:deleveryapp/view/screens/signIn_screen.dart';
@@ -6,6 +8,7 @@ import 'package:deleveryapp/view/widgets/container.dart';
 import 'package:deleveryapp/view/widgets/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool rememberMe = false;
   bool isObscured = true;
-  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -139,46 +141,49 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(height: 8),
-                    Button(
-                      text: "LOG IN",
-                      onTap: () async {
-                        try {
-                          final user = await auth
-                              .signInWithEmailAndPassword(
-                                email: emailController.text,
-                                password:
-                                    passwordController.text,
-                              );
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (ctx) => HomeScreen(),
-                            ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: BlocBuilder<
+                        AuthCubit,
+                        AuthState
+                      >(
+                        builder: (context, state) {
+                          Widget child;
+
+                          if (state is AuthLoading) {
+                            child =
+                                CircularProgressIndicator(
+                                  color: Colors.white,
+                                );
+                          } else if (state is AuthSuccess) {
+                            child = Text(
+                              "Success",
+                            ); // HomeScreen() bu yerda noto‘g‘ri bo‘ladi
+                          } else if (state is AuthError) {
+                            child = Text(
+                              "bunday foydalanuvchi mavjud emas",
+                            );
+                          } else {
+                            child = Text("Log In");
+                          }
+
+                          return FilledButton(
+                            onPressed: () {
+                              context
+                                  .read<AuthCubit>()
+                                  .login(
+                                    email:
+                                        emailController
+                                            .text,
+                                    password:
+                                        passwordController
+                                            .text,
+                                  );
+                            },
+                            child: child,
                           );
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  user.toString(),
-                                ),
-                              ),
-                            );
-                          }
-                        } catch (e) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(
-                              SnackBar(
-                                content: Text(e.toString()),
-                              ),
-                            );
-                          }
-                        }
-                      },
+                        },
+                      ),
                     ),
                     SizedBox(height: 20),
                     Row(

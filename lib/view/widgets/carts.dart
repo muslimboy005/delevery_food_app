@@ -163,7 +163,8 @@ class _CartsState extends State<Carts> {
           },
         );
       },
-      child: Container(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -186,11 +187,14 @@ class _CartsState extends State<Carts> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      widget.name,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
+                    SizedBox(
+                      width: 60,
+                      child: Text(
+                        widget.name,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     if (widget.cros == true)

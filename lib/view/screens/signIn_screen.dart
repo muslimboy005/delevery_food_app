@@ -1,7 +1,11 @@
+import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_cubit.dart';
+import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_state.dart';
+import 'package:deleveryapp/view/screens/home.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:deleveryapp/view/widgets/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -163,38 +167,25 @@ class SignUpScreenState extends State<SignUpScreen> {
 
                   SizedBox(height: 32),
 
-                  Button(
-                    text: "SIGN UP",
-                    onTap: () async {
-                      try {
-                        await auth
-                            .createUserWithEmailAndPassword(
-                              email: emailController.text,
-                              password:
-                                  passwordController.text,
-                            );
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                "muaffaqiyatli",
-                              ),
-                            ),
-                          );
-                        }
-                      } catch (e) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(
-                            SnackBar(
-                              content: Text(e.toString()),
-                            ),
-                          );
-                        }
-                      }
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      return FilledButton(
+                        child:
+                            state is AuthLoading
+                                ? CircularProgressIndicator()
+                                : state is AuthSuccess
+                                ? HomeScreen()
+                                : Text("Sign In"),
+                        onPressed: () async {
+                          context
+                              .read<AuthCubit>()
+                              .register(
+                                email: emailController.text,
+                                password:
+                                    passwordController.text,
+                              );
+                        },
+                      );
                     },
                   ),
 
