@@ -112,6 +112,7 @@ class _ProductActionWidgetState
                   count: quantity,
                 ),
               );
+              Navigator.pop(context);
             },
           ),
         ],

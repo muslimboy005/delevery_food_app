@@ -1,4 +1,6 @@
 import 'package:deleveryapp/datasource/auth_datasource/auth_remoute_datasourse.dart';
+import 'package:deleveryapp/datasource/get_productdatasource/get_productdatasource.dart';
+import 'package:deleveryapp/model/product_model.dart';
 import 'package:deleveryapp/utils/app_colors.dart';
 import 'package:deleveryapp/viewmodel/islog/islog.dart';
 import 'package:flutter/material.dart';
@@ -153,9 +155,14 @@ class _AddCardState extends State<AddCard> {
                     ),
                   ),
                   onPressed: () async {
-                    AuthRemouteDatasourse().loginUser(
-                      "akobir005@gmail.com",
-                      "akobir005",
+                    GetProductdatasource().addProuct(
+                      ProductModel(
+                        image:
+                            "https://masterpiecer-images.s3.yandex.net/63aee5916efa11eea7405696910b1137:upscaled",
+                        name: "Gamburger",
+                        restaurantName: "Evos",
+                        price: 14.36,
+                      ),
                     );
 
                     nameController.clear();

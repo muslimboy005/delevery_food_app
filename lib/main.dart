@@ -1,3 +1,4 @@
+import 'package:deleveryapp/view/screens/add_card.dart';
 import 'package:deleveryapp/view/screens/splash_screen.dart';
 import 'package:deleveryapp/viewmodel/cubits/auth_cubit/auth_cubit.dart';
 import 'package:deleveryapp/viewmodel/cubits/product_cubit/product_cubit.dart';

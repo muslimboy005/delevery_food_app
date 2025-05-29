@@ -28,7 +28,7 @@ class CartService {
   void removeFromCart(int index) {
     _cartItems.removeAt(index);
     try {
-      db.getProduct();
+      db.addProuct();
     } catch (e) {
       print(e);
     }
