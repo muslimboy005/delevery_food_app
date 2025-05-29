@@ -1,8 +1,9 @@
+import 'package:deleveryapp/viewmodel/islog/active_user.dart';
 import 'package:deleveryapp/viewmodel/islog/islog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRemouteDatasourse {
-  final Islog islog = Islog();
+  final AuthLocalService auth = AuthLocalService();
   Future<void> loginUser(
     String email,
     String password,
@@ -16,7 +17,8 @@ class AuthRemouteDatasourse {
           );
 
       String uid = userCredential.user!.uid;
-      await islog.login(userId: uid);
+      await auth.login(userId: uid);
+      ActiveUser.instance.value = uid;
       print("Login bo‘lgan foydalanuvchi UID: $uid");
     } catch (e) {
       print("Login xatoligi: $e");
@@ -38,7 +40,9 @@ class AuthRemouteDatasourse {
 
       // UID ni olish
       String uid = userCredential.user!.uid;
-      await islog.login(userId: uid);
+      
+      await auth.login(userId: uid);
+      ActiveUser.instance.value = uid;
     } catch (e) {
       print("Xatolik yuz berdi: $e");
     }

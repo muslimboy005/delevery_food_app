@@ -4,6 +4,7 @@ class ProductModel {
   String restaurantName;
   double price;
   String? id;
+
   ProductModel({
     required this.image,
     required this.name,
@@ -14,20 +15,21 @@ class ProductModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "name": name,
+      "id": id,
       "image": image,
+      "name": name,
       "restaurantName": restaurantName,
       "price": price,
     };
   }
 
-  factory ProductModel.fromJson(Map json) {
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      id: json["id"],
       image: json["image"],
       name: json["name"],
       restaurantName: json["restaurantName"],
-      price: json["price"],
-      id: json["id"],
+      price: (json["price"] as num).toDouble(), // type safety
     );
   }
 }

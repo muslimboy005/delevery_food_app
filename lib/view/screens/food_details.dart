@@ -115,6 +115,7 @@ class FoodDetailsScreenState
             ),
             SizedBox(height: 10),
             ProductActionWidget(
+              product: widget.product,
               price: widget.product.price,
             ),
           ],

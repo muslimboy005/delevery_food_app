@@ -1,10 +1,16 @@
+import 'package:deleveryapp/model/cart_model.dart';
+import 'package:deleveryapp/model/product_model.dart';
 import 'package:deleveryapp/view/widgets/button.dart';
+import 'package:deleveryapp/viewmodel/cart_service.dart';
 import 'package:flutter/material.dart';
 
 class ProductActionWidget extends StatefulWidget {
   final num price;
-  const ProductActionWidget({
+  final ProductModel product;
+  final cart = CartService.instance;
+  ProductActionWidget({
     super.key,
+    required this.product,
     required this.price,
   });
 
@@ -97,7 +103,17 @@ class _ProductActionWidgetState
             ],
           ),
           SizedBox(height: 25),
-          Button(text: "ADD TO CART", onTap: () {}),
+          Button(
+            text: "ADD TO CART",
+            onTap: () {
+              widget.cart.addToCart(
+                CartItem(
+                  product: widget.product,
+                  count: quantity,
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

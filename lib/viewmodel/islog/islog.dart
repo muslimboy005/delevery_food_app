@@ -1,40 +1,29 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Islog {
-  Future<String?> islog() async {
-    final ins = await SharedPreferences.getInstance();
-    final islog = ins.getString("islog");
-    return islog;
+class AuthLocalService {
+  static const _key = "user_id";
+
+  Future<void> login( {required String userId}) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_key, userId);
+    print("✅ Login: $userId");
   }
 
   Future<void> logout() async {
-    final ins = await SharedPreferences.getInstance();
-    await ins.remove("islog");
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_key);
+    print("🚪 Logged out");
   }
 
-  Future<void> login({required String userId}) async {
-    print(
-      "----------------------------------------------------",
-    );
-    print(
-      "----------------------------------------------------",
-    );
-    print(
-      "----------------------------------------------------",
-    );
+  Future<String?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString(_key);
+    print("🔐 User ID: $userId");
+    return userId;
+  }
 
-    print(userId);
-    print(
-      "----------------------------------------------------",
-    );
-    print(
-      "----------------------------------------------------",
-    );
-    print(
-      "----------------------------------------------------",
-    );
-
-    final ins = await SharedPreferences.getInstance();
-    await ins.setString("islog", userId);
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(_key);
   }
 }

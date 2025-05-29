@@ -1,4 +1,6 @@
+import 'package:deleveryapp/datasource/auth_datasource/auth_remoute_datasourse.dart';
 import 'package:deleveryapp/utils/app_colors.dart';
+import 'package:deleveryapp/viewmodel/islog/islog.dart';
 import 'package:flutter/material.dart';
 
 class AddCard extends StatefulWidget {
@@ -150,7 +152,12 @@ class _AddCardState extends State<AddCard> {
                       ),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    AuthRemouteDatasourse().loginUser(
+                      "akobir005@gmail.com",
+                      "akobir005",
+                    );
+
                     nameController.clear();
                     numberController.clear();
                     dateController.clear();

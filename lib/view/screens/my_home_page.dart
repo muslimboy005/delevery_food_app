@@ -1,6 +1,6 @@
-import 'package:deleveryapp/view/screens/edit_cart.dart';
 import 'package:deleveryapp/view/screens/home.dart';
 import 'package:deleveryapp/view/screens/map.dart';
+import 'package:deleveryapp/view/screens/my_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
 
   final List<Widget> pages = const [
     HomeScreen(),
-    EditCart(),
+    MyCart(),
     MapScreen(),
   ];
 

@@ -1,6 +1,8 @@
+import 'package:deleveryapp/datasource/my_cart/my_cart.dart';
 import 'package:deleveryapp/utils/app_images.dart';
 import 'package:deleveryapp/view/screens/my_home_page.dart';
 import 'package:deleveryapp/view/screens/onboarding_screen.dart';
+import 'package:deleveryapp/viewmodel/islog/active_user.dart';
 import 'package:deleveryapp/viewmodel/islog/islog.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   double _opacity = 0;
-  final Islog islog = Islog();
+  final auth = AuthLocalService();
   @override
   void initState() {
     super.initState();
@@ -27,8 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> pushOnboarding() async {
     await Future.delayed(Duration(seconds: 3));
-    String? log = await islog.islog();
+    String? log =await auth.getUserId();
     print(log);
+    if (log != null) {
+      print(log);
+      ActiveUser.instance.value = log;
+    MyCartData().getProduct();
+
+    }
     Navigator.pushReplacement(
       // ignore: use_build_context_synchronously
       context,
