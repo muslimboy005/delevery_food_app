@@ -73,6 +73,7 @@ class _CartsState extends State<Carts> {
                   ),
                   SizedBox(height: 10),
                   Container(
+                    clipBehavior: Clip.hardEdge,
                     height: 62,
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -81,13 +82,9 @@ class _CartsState extends State<Carts> {
                         10,
                       ),
                     ),
-                    child: Text(
-                      "2118 Thornridge Cir. Syracuse",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color:
-                            AppColors.secondGreyTextColor,
-                      ),
+                    child: Image.network(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYGKqZ9zOWOY3MBROuf3DjvZtKloRdq5fRqg&s",
+                      fit: BoxFit.fill,
                     ),
                   ),
                   SizedBox(height: 30),

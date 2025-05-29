@@ -1,5 +1,7 @@
 import 'package:deleveryapp/utils/app_images.dart';
+import 'package:deleveryapp/view/screens/my_home_page.dart';
 import 'package:deleveryapp/view/screens/onboarding_screen.dart';
+import 'package:deleveryapp/viewmodel/islog/islog.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   double _opacity = 0;
-
+  final Islog islog = Islog();
   @override
   void initState() {
     super.initState();
@@ -25,11 +27,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> pushOnboarding() async {
     await Future.delayed(Duration(seconds: 3));
+    String? log = await islog.islog();
+    print(log);
     Navigator.pushReplacement(
       // ignore: use_build_context_synchronously
       context,
       MaterialPageRoute(
-        builder: (ctx) => OnboardingScreen(),
+        builder:
+            (ctx) =>
+                log == null
+                    ? OnboardingScreen()
+                    : MyHomePage(),
       ),
     );
   }

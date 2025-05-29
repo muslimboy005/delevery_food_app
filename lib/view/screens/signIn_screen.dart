@@ -1,7 +1,6 @@
-import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_cubit.dart';
-import 'package:deleveryapp/cubits/product_cubit/auth_cubit/auth_state.dart';
-import 'package:deleveryapp/view/screens/home.dart';
-import 'package:deleveryapp/view/widgets/button.dart';
+import 'package:deleveryapp/viewmodel/cubits/auth_cubit/auth_cubit.dart';
+import 'package:deleveryapp/viewmodel/cubits/auth_cubit/auth_state.dart';
+import 'package:deleveryapp/view/screens/my_home_page.dart';
 import 'package:deleveryapp/view/widgets/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -167,26 +166,54 @@ class SignUpScreenState extends State<SignUpScreen> {
 
                   SizedBox(height: 32),
 
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      return FilledButton(
-                        child:
-                            state is AuthLoading
-                                ? CircularProgressIndicator()
-                                : state is AuthSuccess
-                                ? HomeScreen()
-                                : Text("Sign In"),
-                        onPressed: () async {
-                          context
-                              .read<AuthCubit>()
-                              .register(
-                                email: emailController.text,
-                                password:
-                                    passwordController.text,
-                              );
-                        },
-                      );
-                    },
+                  SizedBox(
+                    width: double.infinity,
+                    child: BlocBuilder<
+                      AuthCubit,
+                      AuthState
+                    >(
+                      builder: (context, state) {
+                        Widget child;
+
+                        if (state is AuthLoading) {
+                          child = CircularProgressIndicator(
+                            color: Colors.white,
+                          );
+                        } else if (state is AuthSuccess) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (ctx) => MyHomePage(),
+                            ),
+                          );
+                          child = Text(
+                            "Success",
+                          ); // HomeScreen() bu yerda noto‘g‘ri bo‘ladi
+                        } else if (state is AuthError) {
+                          child = Text(
+                            "bunday foydalanuvchi mavjud emas",
+                          );
+                        } else {
+                          child = Text("Sign In");
+                        }
+
+                        return FilledButton(
+                          onPressed: () {
+                            context
+                                .read<AuthCubit>()
+                                .register(
+                                  email:
+                                      emailController.text,
+                                  password:
+                                      passwordController
+                                          .text,
+                                );
+                          },
+                          child: child,
+                        );
+                      },
+                    ),
                   ),
 
                   SizedBox(height: 20),

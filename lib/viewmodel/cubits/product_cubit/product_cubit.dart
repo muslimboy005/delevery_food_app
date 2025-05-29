@@ -1,4 +1,4 @@
-import 'package:deleveryapp/cubits/product_cubit/product_state.dart';
+import 'package:deleveryapp/viewmodel/cubits/product_cubit/product_state.dart';
 import 'package:deleveryapp/datasource/get_productdatasource/get_productdatasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

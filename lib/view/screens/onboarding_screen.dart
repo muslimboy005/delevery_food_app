@@ -2,7 +2,7 @@ import 'package:deleveryapp/utils/app_colors.dart';
 import 'package:deleveryapp/utils/app_images.dart';
 import 'package:deleveryapp/utils/sizedbox_extation.dart';
 import 'package:deleveryapp/view/screens/login_screen.dart';
-import 'package:deleveryapp/viewmodel/onboarding/onboarding_cubit.dart';
+import 'package:deleveryapp/viewmodel/cubits/onboarding/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

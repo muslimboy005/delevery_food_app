@@ -1,5 +1,4 @@
 import 'package:deleveryapp/view/screens/login_screen.dart';
-import 'package:deleveryapp/view/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -12,10 +11,7 @@ class VerificationScreen extends StatefulWidget {
 
 class VerificationScreenState
     extends State<VerificationScreen> {
-  List<TextEditingController> controllers = List.generate(
-    4,
-    (index) => TextEditingController(),
-  );
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +23,29 @@ class VerificationScreenState
             top: 60,
             left: 16,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 140),
+            padding: const EdgeInsets.only(top: 140),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const [
                 Center(
                   child: Text(
-                    "Verification",
+                    "Emailingizni tekshiring",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -62,7 +60,7 @@ class VerificationScreenState
                       horizontal: 40,
                     ),
                     child: Text(
-                      "We have sent a code to your email\nexample@gmail.com",
+                      "Parolni tiklash havolasini emailingizga yubordik. Davom etish uchun uni tasdiqlang.",
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 16,
@@ -80,12 +78,12 @@ class VerificationScreenState
             bottom: 0,
             child: Container(
               width: double.infinity,
-              height: 600,
-              padding: EdgeInsets.symmetric(
+              height: 250,
+              padding: const EdgeInsets.symmetric(
                 horizontal: 24,
                 vertical: 32,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(32),
@@ -93,83 +91,69 @@ class VerificationScreenState
                 ),
               ),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24),
-
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "CODE",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey[600],
-                          letterSpacing: 1.2,
-                        ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[50],
+                      borderRadius: BorderRadius.circular(
+                        12,
                       ),
-                      Text(
-                        "Resend in 50sec",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.mail_outline,
+                          color: Colors.blue,
                         ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 16),
-
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
-                    children: List.generate(4, (index) {
-                      return Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius:
-                              BorderRadius.circular(12),
-                        ),
-                        child: TextField(
-                          controller: controllers[index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          keyboardType:
-                              TextInputType.number,
-                          maxLength: 1,
-                          decoration: InputDecoration(
-                            counterText: "",
-                            border: InputBorder.none,
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            "Emailga kirib, tiklash havolasini tasdiqlang",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      );
-                    }),
+                      ],
+                    ),
                   ),
-
-                  SizedBox(height: 32),
-
-                  Button(
-                    text: "VERIFY",
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => LoginScreen(),
-                        ),
-                      );
-                    },
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: FilledButton(
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await Future.delayed(
+                          const Duration(seconds: 2),
+                        );
+                        if (!mounted) return;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    const LoginScreen(),
+                          ),
+                        );
+                      },
+                      child:
+                          isLoading
+                              ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                              : const Text(
+                                "Tasdiqlash",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                    ),
                   ),
-
-                  Spacer(),
                 ],
               ),
             ),
@@ -177,13 +161,5 @@ class VerificationScreenState
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.dispose();
   }
 }
